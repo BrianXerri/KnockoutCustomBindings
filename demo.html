@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Knockout JS Custom Bindings Demos</title>
+  
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+		
+  </head>
+
+  <body role="document">
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Demo</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#slider">Slider Transition</a></li>
+            <li><a href="#fade">Fade Transition</a></li>
+            <li><a href="#formatter">String Formatter</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase" role="main">
+        
+      <div class="jumbotron">
+        <h1>Knockout JS Custom Bindings</h1>
+        <p>Here are a few examplesof custom bindings with knockout js.</p>
+        <p><a href="http://www.brianxerri.com/2014/08/creating-knockout-js-custom-bindings/" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+      </div>
+  	  
+      <div id="slider"></div>
+      <div class="page-header">
+        <h2>Slider Transition</h2>
+      </div>
+      <div class="panel panel-primary">
+        <div class="panel-heading pointer" data-bind="click: togglePanel.bind($data, isVisibleBindingOpen)">
+          <h3 class="panel-title">Inbuilt Visible Binding</h3>
+        </div>
+        <div class="panel-body" data-bind="visible: isVisibleBindingOpen">
+          <h4>Binding Code</h4>
+          <pre>data-bind="visible: isVisibleBindingOpen"</pre>
+          <a href="js/ko.transition.slide.js">ko.transition.slide.js</a>
+        </div>
+      </div>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading pointer" data-bind="click: togglePanel.bind($data, isBasicSliderOpen)">
+          <h3 class="panel-title">Basic Custom Slide Binding</h3>
+        </div>
+        <div class="panel-body" data-bind="slideTransition: isBasicSliderOpen">
+          <h4>Binding Code</h4>
+          <pre>data-bind="slideTransition: isBasicSliderOpen"</pre>
+          <a href="js/ko.transition.slide.js">ko.transition.slide.js</a>
+        </div>
+      </div>
+
+      <div class="panel panel-primary">
+        <div class="panel-heading pointer" data-bind="click: togglePanel.bind($data, isAdvancedSliderOpen)">
+          <h3 class="panel-title">Advanced Custom Slide Binding</h3>
+        </div>
+        <div class="panel-body" data-bind="slideTransition: { visible: isAdvancedSliderOpen, options: { duration: 1000 } }">
+          <h4>Binding Code</h4>
+          <pre>
+data-bind="slideTransition: { 
+              visible: isAdvancedSliderOpen, 
+              options: { 
+                duration: 1000
+              } 
+            }"</pre>
+            <a href="js/ko.transition.slide.js">ko.transition.slide.js</a>
+        </div>
+      </div>
+
+      <div id="fade"></div>
+      <div class="page-header">
+        <h2>Fade Transition</h2>
+      </div>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li data-bind="css: { active: currentTab() == 1 }"><a href="#" data-bind="click: toggleTab.bind($data, 1)">Tab 1</a></li>
+        <li data-bind="css: { active: currentTab() == 2 }"><a href="#" data-bind="click: toggleTab.bind($data, 2)">Tab 2</a></li>
+        <li data-bind="css: { active: currentTab() == 3 }"><a href="#" data-bind="click: toggleTab.bind($data, 3)">Tab 3</a></li>
+      </ul>
+      <br>
+      <div class="tab-content">
+        <div class="well" data-bind="fadeTransition: { visible: currentTab() == 1, options: { duration: 300 }}">
+          <h3>Tab 1</h3>
+          <pre>
+data-bind="fadeTransition: { 
+              visible: currentTab() == 1, 
+              options: { 
+                duration: 300 
+              }
+            }"</pre>
+            <a href="js/ko.transition.fade.js">ko.transition.fade.js</a>
+        </div>
+        <div class="well" data-bind="fadeTransition: { visible: currentTab() == 2, options: { duration: 300 }}">
+          <h3>Tab 2</h3>
+          <pre>
+data-bind="fadeTransition: { 
+              visible: currentTab() == 2, 
+              options: { 
+                duration: 300 
+              }
+            }"</pre>
+            <a href="js/ko.transition.fade.js">ko.transition.fade.js</a>
+        </div>
+        <div class="well" data-bind="fadeTransition: { visible: currentTab() == 3, options: { duration: 300 }}">
+          <h3>Tab 3</h3>
+          <pre>
+data-bind="fadeTransition: { 
+              visible: currentTab() == 3, 
+              options: { 
+                duration: 300 
+              }
+            }"</pre>
+            <a href="js/ko.transition.fade.js">ko.transition.fade.js</a>
+        </div>
+      </div>
+
+      <div id="formatter"></div>
+      <div class="page-header">
+        <h2>String Formatter</h2>
+      </div>
+      <p data-bind="text: rawDate"></p>
+      <pre>data-bind="text: rawDate"</pre>
+    
+      <p data-bind="dateFormatter: rawDate"></p>
+      <pre>data-bind="dateFormatter: rawDate"</pre>
+
+      <p><a href="js/ko.formatter.date.js">ko.formatter.date.js</a></p>
+    </div>
+
+  	
+  	<script src="http://code.jquery.com/jquery-git2.min.js"></script>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script> 
+    <script src="js/ko.transition.slide.js"></script>
+    <script src="js/ko.transition.fade.js"></script>
+    <script src="js/ko.formatter.date.js"></script>
+    
+    <script>
+      function CustomBindingsViewModel() {
+        var self = this;
+
+        self.isVisibleBindingOpen = ko.observable(false);
+        self.isBasicSliderOpen = ko.observable(false);
+        self.isAdvancedSliderOpen = ko.observable(false);        
+
+        self.togglePanel = function (slider) {
+          slider(!slider())
+        };
+
+        self.currentTab = ko.observable(1);
+
+        self.toggleTab = function (tabNumber) {
+          self.currentTab(0);
+          setTimeout(function () {
+            self.currentTab(tabNumber);
+          }, 250);          
+        };
+
+        self.rawDate = ko.observable(new Date());
+      }
+
+      ko.applyBindings(new CustomBindingsViewModel());
+    </script>
+
+  </body>
+</html>
